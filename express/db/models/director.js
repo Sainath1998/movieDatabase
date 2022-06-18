@@ -4,11 +4,13 @@ const connection = require('../connection')
 const Director = connection.define('director',{
     dir_fname:{
         type:DataTypes.STRING,
-        required:true
+        required:true,
+        allowNull:false
     },
     dir_lname:{
         type:DataTypes.STRING,
-        required:true
+        required:true,
+        allowNull:false
     }
 })
 

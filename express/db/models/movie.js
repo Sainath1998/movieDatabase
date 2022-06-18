@@ -4,11 +4,13 @@ const connection = require('../connection')
 const Movie = connection.define('movie',{
     mov_title:{
         type:DataTypes.STRING,
-        required:true
+        required:true,
+        allowNull:false
     },
     mov_year:{
         type:DataTypes.INTEGER,
-        required:true
+        required:true,
+        allowNull:false
     }
 })
 
@@ -20,4 +22,4 @@ Movie.sync({alter:true}).then((data)=>{
 
 
 
-module.exports = Movie
+module.exports = Movie1
