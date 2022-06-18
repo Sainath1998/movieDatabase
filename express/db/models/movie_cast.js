@@ -7,4 +7,10 @@ const MovieCast = connection.define('moviecast',{
     }
 })
 
+MovieCast.sync({alter:true}).then((data)=>{
+    console.log('Tables are synced')
+}).catch((err)=>{
+    console.log(err.message)
+})
+
 module.exports = MovieCast
