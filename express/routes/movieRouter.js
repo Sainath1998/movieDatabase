@@ -5,9 +5,9 @@ const router = express.Router()
 
 router.route('/read').get(read)
 
-router.route('/update').post(update)
+router.route('/update/:id').patch(update)
 
-router.route('/remove').delete(remove)
+router.route('/remove/:id').delete(remove)
 
 router.route('/add').post(add)
 
