@@ -1,40 +1,68 @@
 const Sequelize = require('../db/connection')
 const {actor} = Sequelize.models
+
 const add = async (req, res) => {
-    const {fname, lname, gender} = req.body
-    const actorExist = await actor.findOne({
-        where: {
-            fname,
-            lname
+    const t = await Sequelize.transaction();
+    try {
+        const {fname, lname, gender} = req.body
+        const actorExist = await actor.findOne({
+            where: {
+                fname,
+                lname
+            }
+        })
+        if (actorExist) {
+            res.json('The actor already exist')
+        } else {
+            const newActor = await actor.create({
+                fname,
+                lname,
+                gender
+            }, {transaction: t})
+            await t.commit();
+            res.json(newActor)
+
         }
-    })
-    if (actorExist) {
-        res.json('The actor already exist')
-    } else {
-        const newActor = await actor.create({fname, lname, gender})
-        res.json(newActor)
+    } catch (error) {
+        console.log(error)
+        await t.rollback();
     }
+
 }
 
 const remove = async (req, res) => {
+    const t = await Sequelize.transaction();
     const {fname, lname} = req.body
-    const deletedUser = await actor.destroy({
-        where: {
-            fname,
-            lname
-        }
-    });
-    res.json(deletedUser)
+    try {
+        const deletedUser = await actor.destroy({
+            where: {
+                fname,
+                lname
+            }
+        }, {transaction: t})
+        await t.commit()
+        res.json(deletedUser)
+
+    } catch (error) {
+        await t.rollback();
+    }
+
 }
 const update = async (req, res) => {
-    const id = req.body.id
-    const updateData = req.body
-    const updatedResult = await actor.update(updateData, {
-        where: {
-          id
-        }
-      });
-      res.json(updatedResult)
+    const t = await Sequelize.transaction();
+    try {
+        const id = req.body.id
+        const updateData = req.body
+        const updatedResult = await actor.update(updateData, {
+            where: {
+                id
+            }
+        }, {transaction: t})
+        await t.commit()
+        res.json(updatedResult)
+    } catch (error) {
+        await t.rollback();
+    }
 }
 const read = async (req, res) => {
     const allActors = await actor.findAll()

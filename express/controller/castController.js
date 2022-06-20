@@ -1,35 +1,60 @@
 const Sequelize = require('../db/connection')
 const {moviecast} = Sequelize.models
 const add = async (req, res) => {
-    const {role, actorId, movieId} = req.body
-    const moviecastExist = await moviecast.findOne({
-        where: {
-            role,
-            actorId,
-            movieId
+    const t = await Sequelize.transaction();
+    try {
+        const {role, actorId, movieId} = req.body
+        const moviecastExist = await moviecast.findOne({
+            where: {
+                role,
+                actorId,
+                movieId
+            }
+        })
+        if (moviecastExist) {
+            res.json('The movie cast is already present')
+        } else {
+            const newMovieCast = await moviecast.create({
+                role,
+                actorId,
+                movieId
+            }, {transaction: t})
+            await t.commit();
+            res.json(newMovieCast)
         }
-    })
-    if (moviecastExist) {
-        res.json('The movie cast is already present')
-    } else {
-        const newMovieCast = await moviecast.create({role, actorId, movieId})
-        res.json(newMovieCast)
+    } catch (error) {
+        await t.rollback();
     }
 }
 const remove = async (req, res) => {
-    const id = req.params.id
-    const deletedUser = await moviecast.destroy({where: {
-            id
-        }});
-    res.json(deletedUser)
+    const t = await Sequelize.transaction();
+    try {
+        const id = req.params.id
+        const deletedUser = await moviecast.destroy({
+            where: {
+                id
+            }
+        }, {transaction: t});
+        await t.commit();
+        res.json(deletedUser)
+    } catch (error) {
+        await t.rollback();
+    }
 }
 const update = async (req, res) => {
-    const id = req.params.id
-    const updateData = req.body
-    const updatedResult = await moviecast.update(updateData, {where: {
-            id
-        }});
-    res.json(updatedResult)
+    const t = await Sequelize.transaction();
+    try {
+        const id = req.params.id
+        const updateData = req.body
+        const updatedResult = await moviecast.update(updateData, {where: {
+                id
+            }},{transaction: t})
+            await t.commit();
+        res.json(updatedResult)
+    } catch (error) {
+        await t.rollback();
+    }
+
 }
 const read = async (req, res) => {
     const allMovieCasts = await moviecast.findAll()
