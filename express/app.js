@@ -7,6 +7,8 @@ const genreRouter = require('../express/routes/genreRouter')
 const reviewerRouter = require('../express/routes/reviewerRoute')
 const castRouter = require('../express/routes/castRouter')
 const movieGenreRouter = require('../express/routes/moviegenreRouter')
+const movieDirRouter = require('../express/routes/movieDirRouter')
+const ratingRouter = require('../express/routes/ratingRouter')
 const app = express()
 app.use(express.json())
 
@@ -21,5 +23,9 @@ app.use('/api/v1/genre',genreRouter)
 app.use('/api/v1/reviewer',reviewerRouter)
 app.use('/api/v1/cast',castRouter)
 app.use('/api/v1/moviegenre',movieGenreRouter)
+app.use('/api/v1/moviedir',movieDirRouter)
+app.use('/api/v1/rating',ratingRouter)
+
+
 
 module.exports = app
