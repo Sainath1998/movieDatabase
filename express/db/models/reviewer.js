@@ -6,7 +6,7 @@ module.exports = (sequelize)=>{
         rev_name:{
             type:DataTypes.STRING,
             required:true,
-            allowNull:false
+            allowNull:false,
         }
     })
 }

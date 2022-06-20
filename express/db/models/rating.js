@@ -5,7 +5,8 @@ module.exports = (sequelize)=>{
     sequelize.define('rating',{
         ratings:{
             type:DataTypes.STRING,
-            required:true
+            required:true,
+          
         }
     })
 } 

@@ -5,7 +5,7 @@ module.exports =(sequelize)=>{
         dir_fname:{
             type:DataTypes.STRING,
             required:true,
-            allowNull:false
+            allowNull:false,
         },
         dir_lname:{
             type:DataTypes.STRING,

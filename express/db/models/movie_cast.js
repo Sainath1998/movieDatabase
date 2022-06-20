@@ -5,7 +5,8 @@ module.exports = (sequelize)=>{
         role:{
             type:DataTypes.STRING,
             required:true,
-            allowNull:false
+            allowNull:false,
+            
         }
     })
 }

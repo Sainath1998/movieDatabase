@@ -4,7 +4,7 @@ module.exports = (sequelize)=>{
   sequelize.define('actor',{
         fname:{
             type:DataTypes.STRING,
-            allowNull:false
+            allowNull:false,
         },
         lname:{
             type:DataTypes.STRING,

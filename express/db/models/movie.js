@@ -6,7 +6,8 @@ module.exports = (sequelize)=>{
         mov_title:{
             type:DataTypes.STRING,
             required:true,
-            allowNull:false
+            allowNull:false,
+    
         },
         mov_year:{
             type:DataTypes.INTEGER,
