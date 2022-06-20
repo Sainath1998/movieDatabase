@@ -16,8 +16,17 @@ const femaleActors = async(req, res)=>{
     res.json(result)
 }
 
+const castOfFriends = async(req, res)=>{
+    const result = await movie.findAll({include:moviecast,reqruired:true,where:{
+        mov_title:{
+            [Op.eq]: 'friends'
+        }
+    }})
+    res.json(result)
+}
 
 module.exports = {
     actorsandroles,
-    femaleActors
+    femaleActors,
+    castOfFriends
 }
