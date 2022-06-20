@@ -1,4 +1,3 @@
-
 function extraSetup(sequelize) {
     const{actor,director,genre,moviecast,moviedir,moviegenre,movie,rating,reviewer} = sequelize.models
 
