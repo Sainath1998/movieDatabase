@@ -1,8 +1,9 @@
 const express = require('express')
-const{findAll} = require('../controller/queries')
+const{actorsandroles,femaleActors} = require('../controller/queries')
 
 const router = express.Router()
 
-router.route('/findall').get(findAll)
+router.route('/actorsandroles').get(actorsandroles)
+router.route('/femaleActors').get(femaleActors)
 
 module.exports = router
