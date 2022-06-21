@@ -39,11 +39,6 @@ function extraSetup(sequelize) {
     actor.belongsToMany(movie, {through: "actormovie",foreignKey: "actorId"})
     movie.belongsToMany(actor, {through: "actormovie",foreignKey: "movieId"})
 
-    // actor.hasMany(actorMovie)
-    // actorMovie.belongsTo(actor)
-    // movie.hasMany(actorMovie)
-    // actorMovie.belongsTo(movie)
-   
 }
 
 module.exports = extraSetup
