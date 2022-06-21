@@ -10,6 +10,7 @@ const movieGenreRouter = require('../express/routes/moviegenreRouter')
 const movieDirRouter = require('../express/routes/movieDirRouter')
 const ratingRouter = require('../express/routes/ratingRouter')
 const queryRouter = require('../express/routes/queryRoutes')
+const actorMovie = require('../express/routes/actorMovieRouter')
 const app = express()
 app.use(express.json())
 
@@ -27,6 +28,6 @@ app.use('/api/v1/moviegenre',movieGenreRouter)
 app.use('/api/v1/moviedir',movieDirRouter)
 app.use('/api/v1/rating',ratingRouter)
 app.use('/api/v1/query',queryRouter)
-
+app.use('/api/v1/actorMovie',actorMovie)
 
 module.exports = app

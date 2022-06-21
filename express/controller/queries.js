@@ -1,6 +1,6 @@
 const{Op} = require('sequelize')
 const Sequelize = require('../db/connection')
-const{actor,director,genre,moviecast,moviedir,moviegenre,movie,rating,reviewer} = Sequelize.models
+const{actor,director,genre,moviecast,moviedir,moviegenre,movie,rating,reviewer,actormovie} = Sequelize.models
 
 const actorsandroles = async(req, res)=>{
     const result = await actor.findAll({include:moviecast})
@@ -25,8 +25,40 @@ const castOfFriends = async(req, res)=>{
     res.json(result)
 }
 
+const manytomany = async (req, res)=>{
+    try{
+        const result = await  actor.findAll({
+            include:[{
+                model:movie,
+                attributes:["mov_title"]
+                
+            }
+            ]
+        })
+    
+        res.json(result)
+    }catch(error){
+        res.json(error.message)
+    }    
+}
+
+const moviesandactors = async (req, res)=>{
+    try{
+        const result = await  movie.findAll({
+            include:[{
+                model:actor 
+            }
+            ]
+        }) 
+        res.json(result)
+    }catch(error){
+        res.json(error.message)
+    }    
+}
 module.exports = {
     actorsandroles,
     femaleActors,
-    castOfFriends
+    castOfFriends,
+    manytomany,
+    moviesandactors
 }

@@ -1,5 +1,16 @@
 function extraSetup(sequelize) {
-    const{actor,director,genre,moviecast,moviedir,moviegenre,movie,rating,reviewer} = sequelize.models
+
+    const {
+        actor,
+        director,
+        genre,
+        moviecast,
+        moviedir,
+        moviegenre,
+        movie,
+        rating,
+        reviewer
+    } = sequelize.models
 
     actor.hasMany(moviecast)
     moviecast.belongsTo(actor)
@@ -24,7 +35,15 @@ function extraSetup(sequelize) {
 
     genre.hasMany(moviegenre)
     moviegenre.belongsTo(genre)
-}
 
+    actor.belongsToMany(movie, {through: "actormovie",foreignKey: "actorId"})
+    movie.belongsToMany(actor, {through: "actormovie",foreignKey: "movieId"})
+
+    // actor.hasMany(actorMovie)
+    // actorMovie.belongsTo(actor)
+    // movie.hasMany(actorMovie)
+    // actorMovie.belongsTo(movie)
+   
+}
 
 module.exports = extraSetup
