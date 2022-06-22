@@ -25,7 +25,7 @@ const castOfFriends = async(req, res)=>{
     res.json(result)
 }
 
-const manytomany = async (req, res)=>{
+const actorsandmovies = async (req, res)=>{
     try{
         const result = await  actor.findAll({
             include:[{
@@ -46,7 +46,8 @@ const moviesandactors = async (req, res)=>{
     try{
         const result = await  movie.findAll({
             include:[{
-                model:actor 
+                model:actor,
+                required: true 
             }
             ]
         }) 
@@ -59,6 +60,6 @@ module.exports = {
     actorsandroles,
     femaleActors,
     castOfFriends,
-    manytomany,
+    actorsandmovies,
     moviesandactors
 }
